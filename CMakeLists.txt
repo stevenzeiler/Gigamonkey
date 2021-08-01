@@ -18,8 +18,11 @@ if(EXISTS "${LOC_PATH}")
     message(FATAL_ERROR "You cannot build in a source directory (or any directory with a CMakeLists.txt file). Please make a build subdirectory. Feel free to remove CMakeCache.txt and CMakeFiles.")
 endif()
 
-## Check if GTests is installed. If not, install it
+## Link in dependencies from conan 
+include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+conan_basic_setup()
 
+## Check if GTests is installed. If not, install it
 option(PACKAGE_TESTS "Build the tests" ON)
 if(NOT TARGET gtest_main AND PACKAGE_TESTS)
 	# Download and unpack googletest at configure time
